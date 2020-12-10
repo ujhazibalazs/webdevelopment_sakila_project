@@ -41,6 +41,21 @@ public class ActorController {
         ));
     }
 
+    @PutMapping("/actor")
+    public void updateActor(@RequestBody ActorDto original, @RequestBody ActorDto updated) {
+        try {
+            actorService.updateActor(new Actor(
+                    original.getFirstName(),
+                    original.getLastName()
+            ), new Actor(
+                    updated.getFirstName(),
+                    updated.getLastName()
+            ));
+        } catch (UnknownActorException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
     @DeleteMapping("/actor")
     public void deleteActor(@RequestBody ActorDeleteRequestDto actorDeleteRequestDto) {
         try {

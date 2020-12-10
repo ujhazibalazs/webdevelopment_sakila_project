@@ -45,8 +45,20 @@ public class ActorDaoImpl implements ActorDao {
     }
 
     @Override
-    public void updateActor(Actor original, Actor updated) {
-
+    public void updateActor(Actor original, Actor updated) throws UnknownActorException {
+        Optional<ActorEntity> actorEntity = StreamSupport.stream(actorRepository.findAll().spliterator(), false).filter(
+                entity -> {
+                    return original.getFirstName().equals(entity.getFirstName()) &&
+                            original.getLastName().equals(entity.getLastName());
+                }
+        ).findAny();
+        if(!actorEntity.isPresent()) {
+            throw new UnknownActorException(original);
+        }
+        actorEntity.get().setFirstName(updated.getFirstName());
+        actorEntity.get().setLastName(updated.getLastName());
+        actorEntity.get().setLastUpdate(new Timestamp((new Date()).getTime()));
+        actorRepository.save(actorEntity.get());
     }
 
     @Override

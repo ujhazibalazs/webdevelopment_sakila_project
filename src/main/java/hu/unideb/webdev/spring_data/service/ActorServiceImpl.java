@@ -27,6 +27,11 @@ public class ActorServiceImpl implements ActorService {
     }
 
     @Override
+    public void updateActor(Actor original, Actor updated) throws UnknownActorException {
+        actorDao.updateActor(original, updated);
+    }
+
+    @Override
     public void deleteActor(Actor actor) throws UnknownActorException {
         actorDao.deleteActor(actor);
     }

@@ -10,6 +10,7 @@ public interface ActorService {
     Collection<Actor> getAllActor();
 
     void recordActor(Actor actor);
+    void updateActor(Actor original, Actor updated) throws UnknownActorException;
     void deleteActor(Actor actor) throws UnknownActorException;
 
 }

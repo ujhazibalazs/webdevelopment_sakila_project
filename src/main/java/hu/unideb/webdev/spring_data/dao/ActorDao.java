@@ -9,7 +9,7 @@ public interface ActorDao {
 
     void createActor(Actor actor);
     Collection<Actor> readAllActor();
-    void updateActor(Actor original, Actor updated);
+    void updateActor(Actor original, Actor updated) throws UnknownActorException;
     void deleteActor(Actor actor) throws UnknownActorException;
 
 }
